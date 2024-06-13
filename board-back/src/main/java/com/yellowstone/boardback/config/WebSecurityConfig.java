@@ -50,8 +50,8 @@ public class WebSecurityConfig {
         @Override
         public void commence(HttpServletRequest request, HttpServletResponse response, AuthenticationException authException) throws IOException, ServletException {
             response.setContentType("application/json");
-            response.setStatus(HttpServletResponse.SC_FORBIDDEN);
-            response.getWriter().write("{\"code\": \"NP\", \"message\": \"Do Not Have Permission.\"}");
+            response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+            response.getWriter().write("{\"code\": \"AF\", \"message\": \"Authorization Failed.\"}");
         }
     }
 }
