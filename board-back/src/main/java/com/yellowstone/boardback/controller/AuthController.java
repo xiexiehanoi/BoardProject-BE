@@ -1,6 +1,8 @@
 package com.yellowstone.boardback.controller;
 
+import com.yellowstone.boardback.dto.request.auth.SignInRequestDto;
 import com.yellowstone.boardback.dto.request.auth.SignUpRequestDto;
+import com.yellowstone.boardback.dto.response.auth.SignInResponseDto;
 import com.yellowstone.boardback.dto.response.auth.SignUpResponseDto;
 import com.yellowstone.boardback.service.AuthService;
 import jakarta.validation.Valid;
@@ -26,4 +28,11 @@ public class AuthController {
       return response;
     }
 
+    @PostMapping("/sign-in")
+    public ResponseEntity<? super SignInResponseDto> signIn(
+            @RequestBody @Valid SignInRequestDto requestBody
+    ) {
+        ResponseEntity<? super SignInResponseDto> response = authService.signIn(requestBody);
+        return response;
+    }
 }
