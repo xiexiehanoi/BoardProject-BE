@@ -6,5 +6,5 @@ import org.springframework.http.ResponseEntity;
 
 public interface BoardService {
 
-    ResponseEntity<PostBoardResponseDto> postBoard(PostBoardRequestDto dto, String email);
+    ResponseEntity<? super PostBoardResponseDto> postBoard(PostBoardRequestDto dto, String email);
 }
