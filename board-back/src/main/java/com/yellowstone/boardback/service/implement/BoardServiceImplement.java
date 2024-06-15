@@ -2,12 +2,14 @@ package com.yellowstone.boardback.service.implement;
 
 import com.yellowstone.boardback.dto.request.board.PostBoardRequestDto;
 import com.yellowstone.boardback.dto.response.ResponseDto;
+import com.yellowstone.boardback.dto.response.board.GetBoardResponseDto;
 import com.yellowstone.boardback.dto.response.board.PostBoardResponseDto;
 import com.yellowstone.boardback.entity.BoardEntity;
 import com.yellowstone.boardback.entity.ImageEntity;
 import com.yellowstone.boardback.repository.BoardRepository;
 import com.yellowstone.boardback.repository.ImageRepository;
 import com.yellowstone.boardback.repository.UserRepository;
+import com.yellowstone.boardback.repository.resultSet.GetBoardResultSet;
 import com.yellowstone.boardback.service.BoardService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -23,6 +25,36 @@ public class BoardServiceImplement implements BoardService {
     private final BoardRepository boardRepository;
     private final UserRepository userRepository;
     private final ImageRepository imageRepository;
+
+    @Override
+    public ResponseEntity<? super GetBoardResponseDto> getBoard(Integer boardNumber) {
+
+        GetBoardResultSet resultSet = null;
+        List<ImageEntity> imageEntities = new ArrayList<>();
+
+        try {
+
+            resultSet = boardRepository.getBoard(boardNumber);
+            if(resultSet == null) return GetBoardResponseDto.notExistBoard();
+
+            imageEntities = imageRepository.findByBoardNumber(boardNumber);
+
+            BoardEntity boardEntity = boardRepository.findByBoardNumber(boardNumber);
+            if (boardEntity == null) {
+                return GetBoardResponseDto.notExistBoard();
+            }
+            boardEntity.increaseViewCount();
+            boardRepository.save(boardEntity);
+
+
+        } catch (Exception exception) {
+            exception.printStackTrace();
+            return ResponseDto.databaseError();
+        }
+
+        return GetBoardResponseDto.success(resultSet, imageEntities);
+    }
+
     @Override
     public ResponseEntity<? super PostBoardResponseDto> postBoard(PostBoardRequestDto dto, String email) {
 
