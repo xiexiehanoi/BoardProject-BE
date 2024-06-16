@@ -48,10 +48,11 @@ public class BoardEntity {
     public void increaseFavoriteCount() {
         this.favoriteCount++;
     }
-
+    public void increaseComment() {this.commentCount++;}
     public void decreaseFavoriteCount() {
         this.favoriteCount--;
     }
+
 
 
 }
