@@ -78,6 +78,12 @@ public class BoardController {
         return response;
     }
 
+    @GetMapping("/latest-list")
+    public ResponseEntity <? super GetLatestBoardListResponseDto> getLatestBoardList() {
+        ResponseEntity<? super GetLatestBoardListResponseDto> response = boardService.getLatestBoardList();
+        return response;
+    }
+
     @PatchMapping("/{boardNumber}")
     public ResponseEntity<? super PatchBoardResponseDto> patchBoard(
             @RequestBody @Valid PatchBoardRequestDto requestBody,
