@@ -1,5 +1,6 @@
 package com.yellowstone.boardback.controller;
 
+import com.yellowstone.boardback.dto.request.board.PatchBoardRequestDto;
 import com.yellowstone.boardback.dto.request.board.PostBoardRequestDto;
 import com.yellowstone.boardback.dto.request.board.PostCommentRequestDto;
 import com.yellowstone.boardback.dto.response.board.*;
@@ -74,6 +75,16 @@ public class BoardController {
             @PathVariable("boardNumber") Integer boardNumber
     ){
         ResponseEntity<? super IncreaseViewCountResponseDto> response = boardService.increaseViewCount(boardNumber);
+        return response;
+    }
+
+    @PatchMapping("/{boardNumber}")
+    public ResponseEntity<? super PatchBoardResponseDto> patchBoard(
+            @RequestBody @Valid PatchBoardRequestDto requestBody,
+            @PathVariable("boardNumber") Integer boardNumber,
+            @AuthenticationPrincipal String email
+    ){
+        ResponseEntity<? super PatchBoardResponseDto> response = boardService.patchBoard(requestBody, boardNumber, email);
         return response;
     }
 
