@@ -3,6 +3,7 @@ package com.yellowstone.boardback.controller;
 import com.yellowstone.boardback.dto.request.board.PostBoardRequestDto;
 import com.yellowstone.boardback.dto.response.board.GetBoardResponseDto;
 import com.yellowstone.boardback.dto.response.board.PostBoardResponseDto;
+import com.yellowstone.boardback.dto.response.board.PutFavoriteResponseDto;
 import com.yellowstone.boardback.service.BoardService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -34,4 +35,12 @@ public class BoardController {
         return response;
     }
 
+    @PutMapping("/{boardNumber}/favorite")
+    public ResponseEntity<? super PutFavoriteResponseDto> putFavorite(
+            @PathVariable("boardNumber") Integer boardNumber,
+            @AuthenticationPrincipal String email
+    ){
+        ResponseEntity<? super PutFavoriteResponseDto> response = boardService.putFavorite(boardNumber, email);
+        return response;
+    }
 }
