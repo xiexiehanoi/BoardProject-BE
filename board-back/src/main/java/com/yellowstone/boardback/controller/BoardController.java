@@ -69,6 +69,14 @@ public class BoardController {
         return response;
     }
 
+    @PatchMapping("/{boardNumber}/increase-view-count")
+    public ResponseEntity<? super IncreaseViewCountResponseDto> increaseVeiwCount(
+            @PathVariable("boardNumber") Integer boardNumber
+    ){
+        ResponseEntity<? super IncreaseViewCountResponseDto> response = boardService.increaseViewCount(boardNumber);
+        return response;
+    }
+
     @DeleteMapping("/{boardNumber}")
     public ResponseEntity<? super DeleteBoardResponseDto> deleteBoard(
             @PathVariable("boardNumber") Integer boardNumber,
