@@ -3,6 +3,7 @@ package com.yellowstone.boardback.repository;
 import com.yellowstone.boardback.entity.FavoriteEntity;
 import com.yellowstone.boardback.entity.primaryKey.FavoritePk;
 import com.yellowstone.boardback.repository.resultSet.GetFavoriteListResultSet;
+import jakarta.transaction.Transactional;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
@@ -25,4 +26,7 @@ public interface FavoriteRepository extends JpaRepository<FavoriteEntity, Favori
         nativeQuery = true
     )
     List<GetFavoriteListResultSet> getFavoriteList(Integer boardNumber);
+
+    @Transactional
+    void deleteByBoardNumber(Integer boardNumber);
 }
