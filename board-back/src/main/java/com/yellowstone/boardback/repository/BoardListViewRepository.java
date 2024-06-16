@@ -10,5 +10,6 @@ import java.util.List;
 public interface BoardListViewRepository extends JpaRepository<BoardListViewEntity, Integer> {
 
     List<BoardListViewEntity> findByOrderByWriteDateTimeDesc();
+    List<BoardListViewEntity> findTop3ByWriteDateTimeGreaterThanOrderByFavoriteCountDescCommentCountDescViewCountDescWriteDateTimeDesc(String writeDateTime);
 
 }
