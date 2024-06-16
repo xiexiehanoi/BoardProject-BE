@@ -1,5 +1,6 @@
 package com.yellowstone.boardback.entity;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
@@ -22,7 +23,8 @@ public class BoardListViewEntity {
     private int viewCount;
     private int favoriteCount;
     private int commentCount;
-    private String writeDatetime;
+    @Column(name = "write_datetime")
+    private String writeDateTime;
     private String writerEmail;
     private String writerNickname;
     private String writerProfileImage;
