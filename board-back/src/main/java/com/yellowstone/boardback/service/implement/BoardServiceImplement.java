@@ -1,18 +1,14 @@
 package com.yellowstone.boardback.service.implement;
 
 import com.yellowstone.boardback.dto.request.board.PostBoardRequestDto;
+import com.yellowstone.boardback.dto.request.board.PostCommentRequestDto;
 import com.yellowstone.boardback.dto.response.ResponseDto;
-import com.yellowstone.boardback.dto.response.board.GetBoardResponseDto;
-import com.yellowstone.boardback.dto.response.board.GetFavoriteListResponseDto;
-import com.yellowstone.boardback.dto.response.board.PostBoardResponseDto;
-import com.yellowstone.boardback.dto.response.board.PutFavoriteResponseDto;
+import com.yellowstone.boardback.dto.response.board.*;
 import com.yellowstone.boardback.entity.BoardEntity;
+import com.yellowstone.boardback.entity.CommentEntity;
 import com.yellowstone.boardback.entity.FavoriteEntity;
 import com.yellowstone.boardback.entity.ImageEntity;
-import com.yellowstone.boardback.repository.BoardRepository;
-import com.yellowstone.boardback.repository.FavoriteRepository;
-import com.yellowstone.boardback.repository.ImageRepository;
-import com.yellowstone.boardback.repository.UserRepository;
+import com.yellowstone.boardback.repository.*;
 import com.yellowstone.boardback.repository.resultSet.GetBoardResultSet;
 import com.yellowstone.boardback.repository.resultSet.GetFavoriteListResultSet;
 import com.yellowstone.boardback.service.BoardService;
@@ -31,6 +27,7 @@ public class BoardServiceImplement implements BoardService {
     private final UserRepository userRepository;
     private final ImageRepository imageRepository;
     private final FavoriteRepository favoriteRepository;
+    private final CommentRepository commentRepository;
 
     @Override
     public ResponseEntity<? super GetBoardResponseDto> getBoard(Integer boardNumber) {
@@ -109,6 +106,30 @@ public class BoardServiceImplement implements BoardService {
             return ResponseDto.databaseError();
         }
         return PostBoardResponseDto.success();
+    }
+
+    @Override
+    public ResponseEntity<? super PostCommentResponseDto> postComment(PostCommentRequestDto dto, Integer boardNumber, String email) {
+
+        try{
+
+            BoardEntity boardEntity = boardRepository.findByBoardNumber(boardNumber);
+            if(boardEntity == null ) return PostCommentResponseDto.noExistBoard();
+
+            boolean existedUser = userRepository.existsByEmail(email);
+            if(!existedUser) return PostCommentResponseDto.noExistUser();
+
+            CommentEntity commentEntity = new CommentEntity(dto, boardNumber, email);
+            commentRepository.save(commentEntity);
+
+            boardEntity.increaseComment();
+            boardRepository.save(boardEntity);
+
+        }catch (Exception exception){
+            exception.printStackTrace();
+            return ResponseDto.databaseError();
+        }
+        return PostCommentResponseDto.success();
     }
 
     @Override
