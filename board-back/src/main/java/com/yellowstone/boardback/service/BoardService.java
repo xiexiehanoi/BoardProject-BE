@@ -13,6 +13,7 @@ public interface BoardService {
     ResponseEntity<? super PostBoardResponseDto> postBoard(PostBoardRequestDto dto, String email);
     ResponseEntity<? super PostCommentResponseDto> postComment(PostCommentRequestDto dto,Integer boardNumber, String email);
     ResponseEntity<? super PutFavoriteResponseDto> putFavorite(Integer boardNumber, String email);
+    ResponseEntity<? super IncreaseViewCountResponseDto> increaseViewCount(Integer boardNumber);
     ResponseEntity<? super DeleteBoardResponseDto> deleteBoard(Integer boardNumber, String email);
 
 
