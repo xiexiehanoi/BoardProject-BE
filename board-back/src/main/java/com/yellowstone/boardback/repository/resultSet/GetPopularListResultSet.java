@@ -1,6 +1,6 @@
 package com.yellowstone.boardback.repository.resultSet;
 
-public interface GetPopularResultSet {
+public interface GetPopularListResultSet {
     String getSearchWord();
     int getCount();
 }
