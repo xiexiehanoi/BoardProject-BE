@@ -2,8 +2,10 @@ package com.yellowstone.boardback.service.implement;
 
 import com.yellowstone.boardback.dto.response.ResponseDto;
 import com.yellowstone.boardback.dto.response.board.GetPopularListResponseDto;
+import com.yellowstone.boardback.dto.response.board.GetRelationListResponseDto;
 import com.yellowstone.boardback.repository.SearchLogRepository;
-import com.yellowstone.boardback.repository.resultSet.GetPopularResultSet;
+import com.yellowstone.boardback.repository.resultSet.GetPopularListResultSet;
+import com.yellowstone.boardback.repository.resultSet.GetRelationListResultSet;
 import com.yellowstone.boardback.service.SearchService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -20,7 +22,7 @@ public class SearchServiceImplement implements SearchService {
 
     @Override
     public ResponseEntity<? super GetPopularListResponseDto> getPopularList(){
-        List<GetPopularResultSet> resultSets = new ArrayList<>();
+        List<GetPopularListResultSet> resultSets = new ArrayList<>();
         try {
 
             resultSets = searchLogRepository.getPopularList();
@@ -29,7 +31,24 @@ public class SearchServiceImplement implements SearchService {
             exception.printStackTrace();
             return ResponseDto.databaseError();
         }
-        return GetPopularListResponseDto.success(resultSets);
 
+        return GetPopularListResponseDto.success(resultSets);
+    }
+
+    @Override
+    public ResponseEntity<? super GetRelationListResponseDto> getRelationList(String searchWord) {
+
+        List<GetRelationListResultSet> resultSets = new ArrayList<>();
+
+        try {
+
+            resultSets = searchLogRepository.getRelationList(searchWord);
+
+        } catch (Exception exception){
+            exception.printStackTrace();
+            return ResponseDto.databaseError();
+        }
+
+        return GetRelationListResponseDto.success(resultSets);
         }
 }

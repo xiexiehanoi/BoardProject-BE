@@ -1,7 +1,8 @@
 package com.yellowstone.boardback.repository;
 
 import com.yellowstone.boardback.entity.SearchLogEntity;
-import com.yellowstone.boardback.repository.resultSet.GetPopularResultSet;
+import com.yellowstone.boardback.repository.resultSet.GetPopularListResultSet;
+import com.yellowstone.boardback.repository.resultSet.GetRelationListResultSet;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
@@ -21,5 +22,19 @@ public interface SearchLogRepository extends JpaRepository<SearchLogEntity,Integ
                 "LIMIT 15 ",
             nativeQuery=true
     )
-    List<GetPopularResultSet> getPopularList();
+    List<GetPopularListResultSet> getPopularList();
+
+    @Query(
+            value =
+            "SELECT relation_word AS searchWord, count(relation_word) AS count " +
+            "FROM search_log " +
+            "WHERE search_word = ?1 " +
+            "AND relation_word IS NOT NULL " +
+            "GROUP BY relation_word " +
+            "ORDER BY count DESC " +
+            "LIMIT 15",
+            nativeQuery = true
+    )
+    List<GetRelationListResultSet> getRelationList(String searchWord);
+
 }
