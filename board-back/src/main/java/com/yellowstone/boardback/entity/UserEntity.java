@@ -1,7 +1,6 @@
 package com.yellowstone.boardback.entity;
 
 import com.yellowstone.boardback.dto.request.auth.SignUpRequestDto;
-import com.yellowstone.boardback.dto.response.auth.SignUpResponseDto;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
@@ -34,5 +33,13 @@ public class UserEntity {
         this.address=dto.getAddress();
         this.addressDetail=dto.getAddressDetail();
         this.agreedPersonal=dto.getAgreedPersonal();
+    }
+
+    public void setNickname(String nickname){
+        this.nickname = nickname;
+    }
+
+    public void setProfileImage(String profileImage){
+        this.profileImage = profileImage;
     }
 }
