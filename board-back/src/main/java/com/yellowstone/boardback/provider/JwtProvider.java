@@ -13,7 +13,7 @@ import java.util.Date;
 @Component
 public class JwtProvider {
 
-    @Value("${secret-key}")
+    @Value("${spring.jwt.secretKey}")
     private String secretKey;
 
     public String create(String email){

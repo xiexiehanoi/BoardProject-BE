@@ -10,7 +10,6 @@ import com.yellowstone.boardback.provider.JwtProvider;
 import com.yellowstone.boardback.repository.UserRepository;
 import com.yellowstone.boardback.service.AuthService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -20,7 +19,7 @@ import org.springframework.stereotype.Service;
 @RequiredArgsConstructor
 public class AuthServiceImplement implements AuthService {
 
-    @Autowired
+
     private final UserRepository userRepository;
     private final JwtProvider jwtProvider;
 
