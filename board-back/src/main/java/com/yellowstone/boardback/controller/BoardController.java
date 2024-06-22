@@ -95,7 +95,7 @@ public class BoardController {
     }
 
     @PatchMapping("/{boardNumber}/increase-view-count")
-    public ResponseEntity<? super IncreaseViewCountResponseDto> increaseVeiwCount(
+    public ResponseEntity<? super IncreaseViewCountResponseDto> increaseViewCount(
             @PathVariable("boardNumber") Integer boardNumber
     ){
         ResponseEntity<? super IncreaseViewCountResponseDto> response = boardService.increaseViewCount(boardNumber);
