@@ -15,13 +15,13 @@ public class CommentListItem {
     private String nickname;
     private String profileImage;
     private String writeDatetime;
-    private String content;
+    private String comment;
 
     public CommentListItem(GetCommentListResultSet resultSet){
         this.nickname = resultSet.getNickname();
         this.profileImage = resultSet.getProfileImage();
         this.writeDatetime = resultSet.getWriteDatetime();
-        this.content = resultSet.getContent();
+        this.comment = resultSet.getComment();
     }
 
     public static List<CommentListItem> copyList(List<GetCommentListResultSet> resultSets){
