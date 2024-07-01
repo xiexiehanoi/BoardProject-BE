@@ -1,6 +1,6 @@
 package com.yellowstone.boardback.exception;
 
-import com.yellowstone.boardback.dto.response.ResponseDto;
+import com.yellowstone.boardback.common.ResponseDto;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
