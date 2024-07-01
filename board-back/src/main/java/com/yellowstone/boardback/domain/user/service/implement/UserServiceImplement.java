@@ -1,5 +1,6 @@
 package com.yellowstone.boardback.domain.user.service.implement;
 
+import com.yellowstone.boardback.domain.jwt.JwtProvider;
 import com.yellowstone.boardback.domain.user.repository.UserRepository;
 import com.yellowstone.boardback.domain.user.dto.request.PatchNicknameRequestDto;
 import com.yellowstone.boardback.domain.user.dto.request.PatchProfileImageRequestDto;
@@ -18,6 +19,7 @@ import org.springframework.stereotype.Service;
 @RequiredArgsConstructor
 public class UserServiceImplement implements UserService {
     private final UserRepository userRepository;
+    private final JwtProvider jwtProvider;
 
     @Override
     public ResponseEntity<? super GetSignInUserResponseDto> getSignInUser(String email) {
@@ -94,5 +96,13 @@ public class UserServiceImplement implements UserService {
         }
 
         return PatchProfileImageResponseDto.success();
+    }
+
+    @Override
+    public void logout(String token) {
+        String email = jwtProvider.getEmailFromToken(token);
+        if (email != null) {
+            jwtProvider.storeRefreshToken(email, null); // Invalidate the refresh token in Redis
+        }
     }
 }

@@ -3,7 +3,6 @@ package com.yellowstone.boardback.domain.board.controller;
 import com.yellowstone.boardback.domain.board.dto.request.PatchBoardRequestDto;
 import com.yellowstone.boardback.domain.board.dto.request.PostBoardRequestDto;
 import com.yellowstone.boardback.domain.board.dto.request.PostCommentRequestDto;
-import com.yellowstone.boardback.board.dto.response.*;
 import com.yellowstone.boardback.domain.board.dto.response.*;
 import com.yellowstone.boardback.domain.board.service.BoardService;
 import jakarta.validation.Valid;

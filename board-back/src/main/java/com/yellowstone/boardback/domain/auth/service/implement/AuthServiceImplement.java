@@ -10,6 +10,7 @@ import com.yellowstone.boardback.domain.user.entity.UserEntity;
 import com.yellowstone.boardback.domain.jwt.JwtProvider;
 import com.yellowstone.boardback.domain.user.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -19,9 +20,9 @@ import org.springframework.stereotype.Service;
 @RequiredArgsConstructor
 public class AuthServiceImplement implements AuthService {
 
-
     private final UserRepository userRepository;
     private final JwtProvider jwtProvider;
+    private final RedisTemplate<String, Object> redisTemplate;
 
     private PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
 
@@ -76,7 +77,7 @@ public class AuthServiceImplement implements AuthService {
             boolean isMatched = passwordEncoder.matches(password, encodedPassword);
             if (!isMatched) return SignInResponseDto.signInFailed();
 
-            token = jwtProvider.create(email);
+            token = jwtProvider.createAccessToken(email);
 
         } catch(Exception exception) {
             exception.printStackTrace();

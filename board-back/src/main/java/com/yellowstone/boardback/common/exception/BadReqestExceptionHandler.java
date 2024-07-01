@@ -1,4 +1,4 @@
-package com.yellowstone.boardback.exception;
+package com.yellowstone.boardback.common.exception;
 
 import com.yellowstone.boardback.common.ResponseDto;
 import org.springframework.http.ResponseEntity;

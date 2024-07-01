@@ -26,19 +26,18 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
 
-
-        try{
+        try {
             String token = parseBearerToken(request);
 
-            if(token == null){
-                filterChain.doFilter(request,response);
+            if (token == null) {
+                filterChain.doFilter(request, response);
                 return;
             }
 
-            String email = jwtProvider.validate(token);
+            String email = jwtProvider.getEmailFromToken(token);
 
-            if(email==null){
-                filterChain.doFilter(request,response);
+            if (email == null) {
+                filterChain.doFilter(request, response);
                 return;
             }
 
@@ -50,25 +49,19 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
             securityContext.setAuthentication(authenticationToken);
 
             SecurityContextHolder.setContext(securityContext);
-        } catch(Exception exception){
+        } catch (Exception exception) {
             exception.printStackTrace();
         }
 
         filterChain.doFilter(request, response);
-
     }
 
-    private String parseBearerToken(HttpServletRequest request){
-
+    private String parseBearerToken(HttpServletRequest request) {
         String authorization = request.getHeader("Authorization");
 
-        boolean hasAuthorization = StringUtils.hasText(authorization);
-        if(!hasAuthorization) return null;
-
-        boolean isBearer = authorization.startsWith("Bearer ");
-        if(!isBearer) return null;
-
-        String token = authorization.substring(7);
-        return token;
+        if (StringUtils.hasText(authorization) && authorization.startsWith("Bearer ")) {
+            return authorization.substring(7);
+        }
+        return null;
     }
 }

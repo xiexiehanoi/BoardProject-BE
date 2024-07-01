@@ -15,4 +15,5 @@ public interface UserService {
     ResponseEntity<? super PatchNicknameResponseDto> patchNickname(PatchNicknameRequestDto dto,String email);
     ResponseEntity<? super PatchProfileImageResponseDto> patchProfileImage(PatchProfileImageRequestDto dto, String email);
 
+    void logout(String token);
 }

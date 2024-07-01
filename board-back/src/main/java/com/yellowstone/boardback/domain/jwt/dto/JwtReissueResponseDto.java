@@ -3,16 +3,14 @@ package com.yellowstone.boardback.domain.jwt.dto;
 import lombok.Builder;
 import org.springframework.http.ResponseEntity;
 
-import static com.bitcamp.board_back.constant.AuthConstant.AUTHORIZATION_HEADER;
-import static com.bitcamp.board_back.constant.AuthConstant.BEARER_PREFIX;
-
 @Builder
 public record JwtReissueResponseDto (
         String accessToken,
         String refreshToken,
         Long accessTokenExpiresIn
 ){
-
+    private static final String AUTHORIZATION_HEADER = "Authorization";
+    private static final String BEARER_PREFIX = "Bearer ";
     public static ResponseEntity<JwtReissueResponseDto> success(JwtRequestDto requestDto, JwtResponseDto responseDto) {
         return ResponseEntity
                 .ok()
