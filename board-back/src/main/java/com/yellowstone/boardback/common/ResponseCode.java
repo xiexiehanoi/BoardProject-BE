@@ -3,7 +3,7 @@ package com.yellowstone.boardback.common;
 public interface ResponseCode {
     
     //HTTP Status 200
-    String SUCCESS = "SC";
+    String SUCCESS = "SU";
 
     //HTTP Status 400
     String VALIDATION_FAILED = "VF";
